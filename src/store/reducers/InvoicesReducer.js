@@ -1,5 +1,6 @@
 import {
   GET_INVOICE,
+  ADD_INVOICE,
   OPEN_FORM,
   CLOSE_FORM,
   SELECT_INVOICE,
@@ -18,7 +19,7 @@ import {
 const initialState = {
   openform: false,
   invoices: [],
-  selectedinvoice: null,
+  selectedinvoice: [],
   items: [],
   filter: "",
 };
@@ -27,12 +28,19 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case GET_INVOICE:
-    case ADD_NEW_INVOICE:
+    case ADD_INVOICE:
       return {
         ...state,
         invoices: action.payload,
         items: [],
       };
+    case ADD_NEW_INVOICE:
+      return {
+        ...state,
+        invoices: [...state.invoices, action.payload],
+        items: [],
+      };
+
     case OPEN_FORM:
       return {
         ...state,

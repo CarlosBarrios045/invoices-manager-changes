@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteItemAction } from "../actions/InvoicesActions";
+import { deleteItemAction } from "src/store/actions/InvoicesActions";
 
 const Item = ({ itemm, readItem }) => {
   const dispatch = useDispatch();
-  // eslint-disable-next-line no-unused-vars
-  const [item, setItem] = useState({
+  const [item] = useState({
     name: itemm.name,
     quantity: itemm.quantity,
     price: itemm.price,
@@ -24,12 +23,12 @@ const Item = ({ itemm, readItem }) => {
   return (
     <div className="item">
       <div onClick={editItem}>
-        {window.innerWidth > 768 ? null : <label>Item Name</label>}
+        {window.innerWidth > 768 && <label>Item Name</label>}
         <input type="text" name="name" disabled={true} value={item.name} />
       </div>
       <div>
         <div onClick={editItem}>
-          {window.innerWidth > 768 ? null : <label>Qty</label>}
+          {window.innerWidth > 768 && <label>Qty</label>}
           <input
             type="number"
             name="quantity"
@@ -38,7 +37,7 @@ const Item = ({ itemm, readItem }) => {
           />
         </div>
         <div onClick={editItem}>
-          {window.innerWidth > 768 ? null : <label>Price</label>}
+          {window.innerWidth > 768 && <label>Price</label>}
           <input
             type="number"
             name="price"
@@ -47,7 +46,7 @@ const Item = ({ itemm, readItem }) => {
           />
         </div>
         <div onClick={editItem}>
-          {window.innerWidth > 768 ? null : <label>Total</label>}
+          {window.innerWidth > 768 && <label>Total</label>}
           <input
             type="text"
             className="total"

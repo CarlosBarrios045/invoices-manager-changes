@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -6,7 +6,7 @@ import {
   addNewInvoiceAction,
   getInvoiceAction,
   editExistingInvoiceAction,
-} from "../actions/InvoicesActions";
+} from "src/store/actions/InvoicesActions";
 import ItemForm from "./ItemForm";
 
 const Form = () => {
@@ -17,32 +17,30 @@ const Form = () => {
   );
   const [newinvoice, setNewInvoice] = useState({
     clientAddress: {
-      city: selectedinvoice ? selectedinvoice.clientAddress.city : null,
-      country: selectedinvoice ? selectedinvoice.clientAddress.country : null,
-      postCode: selectedinvoice ? selectedinvoice.clientAddress.postCode : null,
-      street: selectedinvoice ? selectedinvoice.clientAddress.street : null,
+      city: "",
+      country: "",
+      postCode: "",
+      street: "",
     },
     senderAddress: {
-      city: selectedinvoice ? selectedinvoice.senderAddress.city : null,
-      country: selectedinvoice ? selectedinvoice.senderAddress.country : null,
-      postCode: selectedinvoice ? selectedinvoice.senderAddress.postCode : null,
-      street: selectedinvoice ? selectedinvoice.senderAddress.street : null,
+      city: "",
+      country: "",
+      postCode: "",
+      street: "",
     },
-    items: selectedinvoice ? selectedinvoice.items : [],
-    clientEmail: selectedinvoice ? selectedinvoice.clientEmail : null,
-    clientName: selectedinvoice ? selectedinvoice.clientName : null,
-    createdAt: selectedinvoice ? selectedinvoice.createdAt : null,
-    description: selectedinvoice ? selectedinvoice.description : null,
-    paymentDue: selectedinvoice ? selectedinvoice.paymentDue : null,
-    paymentTerm: selectedinvoice ? selectedinvoice.paymentTerm : null,
-    status: selectedinvoice ? selectedinvoice.status : "pending",
-    total: selectedinvoice ? selectedinvoice.total : 0,
-    id: selectedinvoice ? selectedinvoice.id : trimmedString,
+    items: [],
+    clientEmail: "",
+    clientName: "",
+    createdAt: "",
+    description: "",
+    paymentDue: "",
+    paymentTerm: "",
+    status: "pending",
+    total: 0,
+    id: trimmedString,
   });
   const { items, createdAt } = newinvoice;
-  const [term, setTerm] = useState(
-    selectedinvoice ? selectedinvoice.paymentTerm : null
-  );
+  const [term, setTerm] = useState("");
   const [formerror, setFormError] = useState(false);
   const [formerror2, setFormError2] = useState(false);
 
@@ -51,6 +49,10 @@ const Form = () => {
   const CloseForm = () => {
     dispatch(closeFormAction());
   };
+
+  useEffect(() => {
+    setNewInvoice(selectedinvoice);
+  }, [selectedinvoice]);
 
   const openTerms = () => {
     const hiddenterms = document.querySelector(".hiddenmenu2");
@@ -133,13 +135,11 @@ const Form = () => {
 
   useEffect(() => {
     getPaymentDue();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [term, createdAt]);
 
   useEffect(() => {
     readItems();
     getTotal();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [invoiceitems, items]);
 
   const addNewInvoice = (e) => {
@@ -206,7 +206,7 @@ const Form = () => {
   };
 
   return (
-    <Fragment>
+    <>
       <form className="edit-container" onSubmit={addNewInvoice}>
         <div className="container">
           {window.innerWidth > 768 ? null : (
@@ -337,7 +337,7 @@ const Form = () => {
                   onChange={readInput}
                   value={newinvoice.createdAt}
                   // disabled={selectedinvoice ? true : false}
-                  // style={selectedinvoice ? { opacity: "0.5" } : null}
+                  // style={selectedinvoice ? { opacity: "0.5" } || null}
                 />
               </div>
               <div>
@@ -386,16 +386,11 @@ const Form = () => {
             </p>
           </div>
           <div className="edit-footer">
-            {selectedinvoice ? (
-              <button type="button" onClick={CloseForm}>
-                Cancel
-              </button>
-            ) : (
-              <button type="button" onClick={CloseForm}>
-                Discard
-              </button>
-            )}
-            {selectedinvoice ? null : (
+            <button type="button" onClick={CloseForm}>
+              {selectedinvoice ? "Cancel" : "Discard"}
+            </button>
+
+            {selectedinvoice && (
               <button
                 type="submit"
                 className="draft"
@@ -421,7 +416,7 @@ const Form = () => {
         className="transparent-background-form"
         onClick={() => CloseForm()}
       />
-    </Fragment>
+    </>
   );
 };
 

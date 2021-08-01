@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewItemAction } from "../actions/InvoicesActions";
+import { addNewItemAction } from "../../store/actions/InvoicesActions";
 import Item from "./Item";
 import uuid from "uuid";
 
@@ -32,7 +32,6 @@ const ItemForm = ({ setFormError2 }) => {
         total: Number(quantity * price),
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quantity, price]);
 
   const inputError = () => {

@@ -14,20 +14,20 @@ import {
   FILTER_INVOICES_BY_STATUS,
   FILTERED_INVOICES,
 } from "../types/index";
-import AxiosClient from "../config/axios";
-
-export function getInvoiceAction() {
-  return async (dispatch) => {
-    //get all the invoices from the data base
-    const invoices = await AxiosClient.get("/invoices");
-    dispatch(getInvoices(invoices.data));
-  };
-}
+import AxiosClient from "../../config/axios";
 
 const getInvoices = (invoices) => ({
   type: GET_INVOICE,
   payload: invoices,
 });
+
+export function getInvoiceAction() {
+  return async (dispatch) => {
+    // get all the invoices from the data base
+    const invoices = await AxiosClient.get("/invoices");
+    dispatch(getInvoices(invoices.data));
+  };
+}
 
 export function openFormAction() {
   return (dispatch) => {
@@ -80,17 +80,17 @@ const resetSelectedInvoice = () => ({
   type: RESET_SELECTED_INVOICE,
 });
 
+const addNewInvoice = (invoice) => ({
+  type: ADD_NEW_INVOICE,
+  payload: invoice,
+});
+
 export function addNewInvoiceAction(invoice) {
   return async (dispatch) => {
     await AxiosClient.post("/invoices", invoice);
     dispatch(addNewInvoice(invoice));
   };
 }
-
-const addNewInvoice = (invoice) => ({
-  type: ADD_NEW_INVOICE,
-  payload: invoice,
-});
 
 export function deleteInvoiceAction(invoice) {
   return async (dispatch) => {

@@ -1,11 +1,15 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Bar from "./components/Bar";
-import Invoices from "./components/Invoices";
-import Details from "./components/Details";
 
-//redux
+// Pages
+import Invoices from "./pages/Invoices";
+import Details from "./pages/Details";
+
+// Components
+import Bar from "./components/Molecules/Bar";
+
+// Redux
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "./store/store";
 
 function App() {
   return (

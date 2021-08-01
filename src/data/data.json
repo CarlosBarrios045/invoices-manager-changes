@@ -305,6 +305,38 @@
       "status": "draft",
       "total": 0,
       "id": "867dc2"
+    },
+    {
+      "clientAddress": {
+        "city": "Guanare",
+        "country": "Venezuela",
+        "postCode": "3350",
+        "street": "Buenos Aires Calle 2"
+      },
+      "senderAddress": {
+        "city": "Guanare",
+        "country": "Venezuela",
+        "postCode": "3350",
+        "street": "Buenos Aires Calle 2"
+      },
+      "items": [
+        {
+          "name": "Juan Barrios",
+          "quantity": "2",
+          "price": "2",
+          "total": 4,
+          "id": "eff1fa71-1e4d-4bac-bbf3-9356d7aa18bc"
+        }
+      ],
+      "clientEmail": "juanbarrios045@gmail.com",
+      "clientName": "Juan B",
+      "createdAt": "2021-08-06",
+      "description": "Jeje",
+      "paymentDue": "2021-08-13T00:00:00.000Z",
+      "paymentTerm": 7,
+      "status": "pending",
+      "total": 4,
+      "id": "eec2a7"
     }
   ]
 }

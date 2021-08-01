@@ -1,10 +1,9 @@
-import { Fragment } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
   deleteInvoiceAction,
   getInvoiceAction,
-} from "../actions/InvoicesActions";
+} from "src/store/actions/InvoicesActions";
 
 const Modal = ({ open, children, onClose, selectedinvoice }) => {
   const dispatch = useDispatch();
@@ -19,7 +18,7 @@ const Modal = ({ open, children, onClose, selectedinvoice }) => {
   if (!open) return null;
 
   return (
-    <Fragment>
+    <>
       <div className="transparent-background" />
       <div className="modal">
         {children}
@@ -35,7 +34,7 @@ const Modal = ({ open, children, onClose, selectedinvoice }) => {
           </button>
         </div>
       </div>
-    </Fragment>
+    </>
   );
 };
 

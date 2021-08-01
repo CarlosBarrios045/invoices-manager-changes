@@ -1,9 +1,13 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import InvoicesBar from "./InvoicesBar";
-import Empty from "./Empy";
-import InvoicesList from "./InvoicesList";
-import { getInvoiceAction } from "../actions/InvoicesActions";
+
+// Components
+import InvoicesBar from "src/components/Molecules/InvoicesBar";
+import Empty from "src/components/Molecules/Empy";
+import InvoicesList from "src/components/Molecules/InvoicesList";
+
+// Actions
+import { getInvoiceAction } from "src/store/actions/InvoicesActions";
 
 const Invoices = () => {
   const dispatch = useDispatch();
@@ -11,7 +15,6 @@ const Invoices = () => {
 
   useEffect(() => {
     dispatch(getInvoiceAction());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

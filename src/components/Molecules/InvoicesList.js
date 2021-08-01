@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { addInvoiceAction } from "../actions/InvoicesActions";
+import { addInvoiceAction } from "src/store/actions/InvoicesActions";
 
 const InvoicesList = () => {
   const invoices = useSelector((state) => state.invoices.invoices);

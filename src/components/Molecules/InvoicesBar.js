@@ -1,27 +1,25 @@
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
 import {
   openFormAction,
   filterInvoicesbyStatusAction,
-} from "../actions/InvoicesActions";
+} from "src/store/actions/InvoicesActions";
 
 const InvoicesBar = () => {
   const dispatch = useDispatch();
 
-  const invoices = useSelector((state) => state.invoices.invoices);
-
-  const filter = useSelector((state) => state.invoices.filter);
+  const { invoices, filter } = useSelector((state) => state.invoices);
 
   const openForm = () => {
     dispatch(openFormAction());
   };
 
   const readFilter = (e) => {
-    if (e.target.id === filter) {
-      dispatch(filterInvoicesbyStatusAction(""));
-    } else {
-      dispatch(filterInvoicesbyStatusAction(e.target.id));
-    }
+    dispatch(
+      filterInvoicesbyStatusAction(
+        e.target.value === filter ? "" : e.target.value
+      )
+    );
   };
 
   const openFilter = () => {
@@ -44,9 +42,8 @@ const InvoicesBar = () => {
         <h2>Invoices</h2>
         {invoices.length > 0 ? (
           <p>
-            {window.innerWidth > 768 ? "There are " : null}
-            {invoices.length} {window.innerWidth > 768 ? "total " : null}{" "}
-            invoices
+            {window.innerWidth > 768 && "There are "}
+            {invoices.length} {window.innerWidth > 768 && "total "} invoices
           </p>
         ) : (
           <p>No invoices</p>
@@ -55,24 +52,39 @@ const InvoicesBar = () => {
       <ul className="filter-box">
         <li>
           <button onClick={openFilter}>
-            Filter {window.innerWidth > 768 ? "by status" : null}
+            Filter {window.innerWidth > 768 && "by status"}
             <span className="arrow"></span>
           </button>
 
           <ul className="hiddenmenu">
             <li>
               <span></span>
-              <input type="checkbox" id="draft" onChange={readFilter} />
+              <input
+                type="radio"
+                value="draft"
+                onChange={readFilter}
+                name="filter"
+              />
               <label htmlFor="draft">Draft</label>
             </li>
             <li>
               <span></span>
-              <input type="checkbox" id="pending" onChange={readFilter} />
+              <input
+                type="radio"
+                value="pending"
+                onChange={readFilter}
+                name="filter"
+              />
               <label htmlFor="pending">Pending</label>
             </li>
             <li>
               <span></span>
-              <input type="checkbox" id="paid" onChange={readFilter} />
+              <input
+                type="radio"
+                value="paid"
+                onChange={readFilter}
+                name="filter"
+              />
               <label htmlFor="paid">Paid</label>
             </li>
           </ul>
@@ -80,7 +92,7 @@ const InvoicesBar = () => {
       </ul>
       <div className="button-box">
         <button type="button" onClick={openForm}>
-          New {window.innerWidth > 768 ? "Invoice" : null}
+          New {window.innerWidth > 768 && "Invoice"}
         </button>
       </div>
     </div>

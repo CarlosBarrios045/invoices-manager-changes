@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
-import Modal from "./Modal";
 import { v4 as uuidv4 } from "uuid";
 import {
   selectInvoiceEditAction,
   addInvoiceAction,
   changeInvoiceStatusAction,
   openFormAction,
-} from "../actions/InvoicesActions";
+} from "src/store/actions/InvoicesActions";
+import Modal from "src/components/Molecules/Modal";
 
 const Details = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -120,9 +119,9 @@ const Details = () => {
           <div className="payment">
             <div>
               <p>Invoice Date</p>
-              <h4>{createdAt === null ? "" : dateFomater(createdAt)}</h4>
+              <h4>{createdAt && dateFomater(createdAt)}</h4>
               <p>Payment Due</p>
-              <h4>{paymentDue === null ? "" : dateFomater(paymentDue)}</h4>
+              <h4>{paymentDue && dateFomater(paymentDue)}</h4>
             </div>
             <div>
               <p>Bill to</p>
@@ -212,17 +211,19 @@ const Details = () => {
           </button>
         ) : null}
       </div>
-      <Modal
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
-        selectedinvoice={selectedinvoice}
-      >
-        <h2>Confirm Deletion</h2>
-        <p>
-          Are you sure you want to delete the invoice <span>#{id}</span>?, this
-          action cannot be undone.
-        </p>
-      </Modal>
+      {isOpen && (
+        <Modal
+          open={isOpen}
+          onClose={() => setIsOpen(false)}
+          selectedinvoice={selectedinvoice}
+        >
+          <h2>Confirm Deletion</h2>
+          <p>
+            Are you sure you want to delete the invoice <span>#{id}</span>?,
+            this action cannot be undone.
+          </p>
+        </Modal>
+      )}
     </div>
   );
 };

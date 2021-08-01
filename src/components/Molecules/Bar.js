@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import logo from "../assets/logo.svg";
+import logo from "src/assets/logo.svg";
 import Form from "./Form";
-import { resetSelectedInvoiceAction } from "../actions/InvoicesActions";
+import { resetSelectedInvoiceAction } from "src/store/actions/InvoicesActions";
 
 const Bar = () => {
   const open = useSelector((state) => state.invoices.openform);
-  const doc = document.querySelector("body");
+  const doc = document.body;
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -18,7 +18,6 @@ const Bar = () => {
     } else {
       doc.classList.add("light");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const backToHome = () => {
